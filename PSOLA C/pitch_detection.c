@@ -64,7 +64,6 @@ uint16_t find_peaks(int16_t * signal, uint32_t length, int16_t * sig_peak, float
     return number_peak;
 }
 			
-
 void auto_correlation(int16_t * signal, uint32_t length , int16_t * result)
 {
     int16_t sum;
@@ -77,18 +76,23 @@ void auto_correlation(int16_t * signal, uint32_t length , int16_t * result)
     }
 }
 
-
-int16_t get_fundamental(int16_t * signal, uint32_t len_signal, float fs)
+int16_t get_fundamental(int16_t * signal, uint32_t length, float fs)
 {
-    uint16_t sig_peak[100];
-    uint16_t periods[100];
+    uint16_t * sig_peak = NULL;
+    uint16_t * periods = NULL;
+	uint32_t sequence_len = ANALY_WIN_MS / 1000.0f * fs; //sequence length in samples
     uint16_t period, len_peaks;
 
-    len_peaks = find_peaks(signal, len_signal, sig_peak, fs);
+	sig_peak = (uint16_t *) malloc(sizeof(uint16_t) * length);
+	periods = (uint16_t *) malloc(sizeof(uint16_t) * (length/sequence_len) );
+
+    len_peaks = find_peaks(signal, length, sig_peak, fs);
     
     for(int i = 0; i < len_peaks; i++)
         periods[i] = sig_peak[i + 1] - sig_peak[i];
     
     period = mean(periods, len_peaks);
+	free(sig_peak);
+	free(periods);
     return fs/period;
 }
