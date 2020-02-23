@@ -6,7 +6,7 @@
 #define MIN_HZ 75
 #define MAX_CHANGE	1.3f
 #define MIN_CHANGE	0.7f
-#define ANALY_WIN_MS	40
+#define ANALY_WIN_MS	20
 
 #define MAX_NUM_PEAKS	100
 #define MAX_SIGNAL_SIZE 2048
@@ -21,19 +21,6 @@ uint16_t sig_peak[MAX_SIGNAL_SIZE];//MAX_NUM_PEAKS];
 //	arm_correlate_fast_q15	(const q15_t * 	pSrcA, uint32_t 	srcALen, 
 //				const q15_t * 	pSrcB, uint32_t 	srcBLen, q15_t * 	pDst)	
 
-/*
-This functions finds indexes of peaks in time-domain signal
-
-Input:
-	-:param max_hz: maximum measured fundamental frequency
-	-:param min_hz: minimum measured fundamental frequency
-	-:param analysis_win_ms: window size used for autocorrelation analysis
-	-:param max_change: restrict periodicity to not increase by more than this ratio from the mean
-	-:param min_change: restrict periodicity to not decrease by more than this ratio from the mean
-
-Return:
-	-:return: peak indexes
-*/
 uint16_t find_peaks(int16_t * signal, uint32_t length, int16_t * sig_peak, float fs)
 {
     //Reset Global Var

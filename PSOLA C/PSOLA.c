@@ -171,7 +171,7 @@ void bartlett(int16_t* window, int16_t length)
 }
 
 
-int16_t* pitch_correct(int16_t* signal, int16_t* peaks, uint16_t peaks_len , uint16_t fs, float f_ratio)
+int16_t* pitch_correct(int16_t* signal, int16_t* peaks, uint16_t peaks_len , float fs, float f_ratio)
 {  
     uint16_t N = 512;
     int16_t * new_signal = (int16_t *)calloc(N, sizeof(int16_t));
@@ -221,7 +221,12 @@ int16_t* pitch_correct(int16_t* signal, int16_t* peaks, uint16_t peaks_len , uin
         {
             new_signal[z + new_peaks[j]] += signal[z + peaks[i]] * hamming(z, P1[0] + P1[1]);
         }
+        
+        free(abs_diff);
     }
+    
+    free(new_peaks_ref);
+    free(new_peaks);
     
     return new_signal;
 }
