@@ -67,13 +67,13 @@ float mean(int16_t * array, uint32_t len_array)
 /*
 //Falta probar
 */
-void save_array(char * file_name, int16_t array, uint32_t length)
+void save_array(char * file_name, int16_t * array, uint32_t length)
 {
 	FILE * log_file = NULL;
 	log_file = fopen("salido_auto_correlation.log", "wb+");
 
 	for(int i = 0; i < 1024; i++)
-		fprintf(log_file, "%.4f, ",int16_t[i]);
+		fprintf(log_file, "%.4f, ",array[i]);
 
 	fflush(log_file);
 }

@@ -25,7 +25,7 @@ typedef struct
 void initPSOLA(PSOLA* psola, uint16_t bufferLen);
 void clearPSOLA(PSOLA* psola);
 void pitchCorrect(PSOLA* psola, int16_t* input, uint16_t Fs, float inputPitch, float desiredPitch);
-int16_t* pitch_correct(int16_t* signal, int16_t* peaks, uint16_t peaks_len , uint16_t fs, float f_ratio);
+int16_t* pitch_correct(int16_t* signal, int16_t* peaks, uint16_t peaks_len , float fs, float f_ratio);
 void bartlett(int16_t* window, int16_t length);
 
 #endif /* defined(____PSOLA__) */
